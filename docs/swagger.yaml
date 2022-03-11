@@ -1,0 +1,54 @@
+definitions:
+  dto.Tickets:
+    properties:
+      tickets:
+        items:
+          items:
+            type: string
+          type: array
+        type: array
+    type: object
+  errors.ErrorResponse:
+    properties:
+      error_code:
+        type: string
+      error_message:
+        type: string
+      status:
+        type: integer
+    type: object
+info:
+  contact: {}
+paths:
+  /track:
+    post:
+      consumes:
+      - application/json
+      description: Find source and destination
+      parameters:
+      - description: request body
+        in: body
+        name: Tickets
+        required: true
+        schema:
+          $ref: '#/definitions/dto.Tickets'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              type: string
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/errors.ErrorResponse'
+      tags:
+      - Find Source And Destination
+swagger: "2.0"
